@@ -1,0 +1,199 @@
+<html>
+<body>
+<br/><br/>
+
+<p><b>Q.1.</b> Consider the set of processes with arrival time (in milliseconds). CPU burst time (in milliseconds) and priority (0 is the highest priority) shown below. None of the processes have I/O burst time.<b>(GATE 2017 CS02)</b></p>
+<p><table border="1">
+<thead>
+<tr>
+<th>Process</th><th>Arrival Time</th><th>Burst time</th><th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P1</td><td>0</td><td>11</td><td>2</td>
+</tr>
+<tr>
+<td>P2</td><td>5</td><td>28</td><td>0</td>
+</tr>
+<tr>
+<td>P3</td><td>12</td><td>2</td><td>3</td>
+</tr>
+<tr>
+<td>P4</td><td>2</td><td>10</td><td>1</td>
+</tr>
+<tr>
+<td>P5</td><td>9</td><td>16</td><td>4</td>
+</tr>
+</tbody>
+</table>
+</p>
+
+<p>The average waiting time (in milli seconds) of all the process using premtive priority scheduling algorithm is ______</p>
+<ol>
+<li><p>29.0</p></li>
+<li><p>28.0</p></li>
+<li><p>27.0</p></li>
+<li><p>30.0</p></li>
+</ol>
+<p><b>Ans . </b> 29.0 </p>
+<br/>
+<p>Solution to the above problem is given below:</p>
+<img src="images/solution.jpg"
+  alt="priority encoder"
+  width="700"
+  height="500"
+  layout="responsive"
+  class="m1">
+  <noscript>
+    <img src="images/solution.jpg" width="700" height="500" alt="priority encoder"> 
+  </noscript>
+</img><br/>
+
+<br/><br/>
+
+<p><b>Q.2.</b> Consider the following system snapsnot <b>(GATE 2017 CS02)</b></p>
+<p><table border="8">
+<thead>
+<tr>
+<th>Process</th><th>Currently allocation</th><th>Maximum</th><th>Need</th><th>Available</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P0</td><td>0 1 0</td><td>7 5 3</td><td>7 4 3<td>2 3 0</td>
+</tr>
+<tr>
+<td>P1</td><td>3 0 2</td><td>3 2 2</td><td>0 2 0</td>
+</tr>
+<tr>
+<td>P2</td><td>3 0 2</td><td>9 0 2</td><td>6 0 0</td>
+</tr>
+<tr>
+<td>P3</td><td>2 1 1</td><td>2 2 2</td><td>0 1 1</td>
+</tr>
+<tr>
+<td>P4</td><td>0 0 2</td><td>4 3 3</td><td>4 3 1</td>
+</tr>
+</tbody>
+</table>
+</p>
+<p>Which of the following is a safe sequence?</p>
+<ol>
+<li><p>P1,P3,P0,P4,P2</p></li>
+<li><p>P3,P1,P4,P0,P2</p></li>
+<li><p>P3,P4,P1,P0,P2</p></li>
+<li><p>All of these</p></li>
+</ol>
+<p><b>Ans . </b>(1).P1,P3,P0,P4,P2</p>
+<p>Solution to the above problem is given below:</p>
+<p>A safe sequence will not start with P3 here because, P3 needs 1 resource of C, but for C, none is available at present. If P1 completes & releases all its currently held resources, then P3 can proceed. So here P1,P3,P0,P4,P2 is a safe sequence</p>
+<br/><br/>
+
+<p><b>Q.3.</b> A system shares 9 tape drives. The current allocation and maximum requirement of tape drives for 3 processes are shown below:<b>(GATE 2017 CS02)</b></p>
+<p><table border="8">
+<thead>
+<tr>
+<th>Process</th><th>Current allocation</th><th>Maximum requirement</th>
+</thead>
+<tbody>
+<tr>
+<td>P1</td><td>3</td><td>7</td>
+</tr>
+<tr>
+<td>P2</td><td>1</td><td>6</td>
+</tr>
+<tr>
+<td>P3</td><td>3</td><td>5</td>
+</tr>
+</tbody>
+</table>
+</p>
+<p>Which of the following best describes the current state of the system?</p>
+<ol>
+<li><p>Safe, Deadlocked</p></li>
+<li><p>Safe, Not Deadlocked</p></li>
+<li><p>Not Safe, Deadlocked</p></li>
+<li><p>Not Safe, Not Deadlocked</p></li>
+</ol>
+<p><b>Ans . </b>(2).Safe, Not Deadlocked</p>
+<p>Solution to the above problem is given below:</p>
+<img src="images/solution2.png"
+  alt="priority encoder"
+  width="700"
+  height="500"
+  layout="responsive"
+  class="m1">
+  <noscript>
+    <img src="images/solution2.png" width="700" height="500" alt="priority encoder"> 
+  </noscript>
+</img><br/>
+<br/><br/>
+
+<p><b>Q.4.</b>Consider the following CPU processes with arrival times (in milliseconds) and length of CPU bursts (in milliseconds) as given below:<b>(GATE 2017 CS01)</b></p>
+<p><table border="1">
+<thead>
+<tr>
+<th>Process</th><th>Arrival Time</th><th>Burst time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P1</td><td>0</td><td>7</td>
+</tr>
+<tr>
+<td>P2</td><td>3</td><td>3</td>
+</tr>
+<tr>
+<td>P3</td><td>5</td><td>5</td>
+</tr>
+<tr>
+<td>P4</td><td>6</td><td>2</td>
+</tr>
+
+</tbody>
+</table>
+</p>
+
+<p>If the pre-emptive shortest remaining time first scheduling algorithm is used to schedule the processes, then the average waiting time across all processes is _______ milliseconds. </p>
+<ol>
+<li><p>1</p></li>
+<li><p>2</p></li>
+<li><p>3</p></li>
+<li><p>4</p></li>
+</ol>
+<p><b>Ans . </b>3</p>
+<br/>
+<p>Solution to the above problem is given below:</p>
+<p>Given, with arrival time and burst time: </p>
+<img src="images/solution3.png"
+  alt="priority encoder"
+  width="700"
+  height="500"
+  layout="responsive"
+  class="m1">
+  <noscript>
+    <img src="images/solution3.png" width="700" height="500" alt="priority encoder"> 
+  </noscript>
+</img><br/>
+<p>Using (preemptive) shortest remaining time first algorithm, gantt chart is:</p>
+<img src="images/solution4.png"
+  alt="priority encoder"
+  width="700"
+  height="500"
+  layout="responsive"
+  class="m1">
+  <noscript>
+    <img src="images/solution4.png" width="700" height="500" alt="priority encoder"> 
+  </noscript>
+</img><br/>
+<p> Therefore,
+Average waiting time = ( 5 + 0 + 7 + 0 ) / 4 = 12 / 4 = 3</p>
+
+<br/><br/>
+
+
+
+
+</body>
+</html>
