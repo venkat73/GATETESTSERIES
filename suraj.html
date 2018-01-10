@@ -192,7 +192,840 @@ Average waiting time = ( 5 + 0 + 7 + 0 ) / 4 = 12 / 4 = 3</p>
 
 <br/><br/>
 
+<p><b>Q.5.</b> A multithreaded program P executes with xx number of threads and uses yy number of locks for ensuring mutual exclusion while operating on shared memory locations. All locks in the program are non-reentrant, i.e., if a thread holds a lock ll, then it cannot re-acquire lock ll without releasing it. If a thread is unable to acquire a lock, it blocks until the lock becomes available. The minimum value of xx and the minimum value of yy together for which execution of P can result in a deadlock are:<b>(GATE 2017 CS01)</b></p>
 
+<ol>
+<li><p>xx = 1, yy = 2</p></li>
+<li><p>xx = 2, yy = 1</p></li>
+<li><p>xx = 2, yy = 2</p></li>
+<li><p>xx = 1, yy = 1</p></li>
+</ol>
+<p><b>Ans . </b>(4).xx = 1, yy = 1</p>
+<p>Solution:</p>
+<p> If we see definition of reentrant Lock :
+
+In computer science, the reentrant mutex (recursive mutex, recursive lock) is particular type of mutual exclusion (mutex) device that may be locked multiple times by the same process/thread, without causing a deadlock. https://en.wikipedia.org/wiki/Reentrant_mutex
+
+A ReentrantLock is owned by the thread last successfully locking, but not yet unlocking it. A thread invoking lock will return, successfully acquiring the lock, when the lock is not owned by another thread. The method will return immediately if the current thread already owns the lock https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/ReentrantLock.html
+
+I think Reentrant property is provided, so that a process who owns a lock , can accuire same lock multiple times. Here it is non-reentrant as given, process cant own same lock multiple times, so if process tries to accuire already owned lock, will get blocked , and deadlock will happen.
+
+So answer is (4)th option </p>
+<br/><br/>
+
+<p><b>Q.6.</b> In a file allocation system which of the following allocation schemes can be used if no external fragementation is allowed?<b>(GATE 2017 CS02)</b>
+<br/>
+<p>I.Contiguous</p>
+<p>II.Linked</p>
+III.Indexed</p>
+
+<ol>
+<li><p>I and III only</p></li>
+<li><p>II only</p></li>
+<li><p>III only</p></li>
+<li><p>II and III only</p></li>
+</ol>
+<p><b>Ans . </b>(4).II and III only</p>
+<p>Solution:</p>
+<p>In contiguous allocation, there is a possibility of external fragementation.
+So, the correct option is (4)</p>
+<br/><br/>
+
+<p><b>Q.7.</b>Consider an arbitrary set of CPU-bound processes with unequal CPU burst lengths
+submitted at the same time to a computer system. Which one of the following process scheduling algorithms would minimize the average waiting time in the ready queue?<b>(GATE 2016 CS01)</b>
+<ol>
+<li><p>Shortest remaining time first</p></li>
+<li><p>Round-robin with time quantum less than the shortest CPU burst</p></li>
+<li><p>Uniform random</p></li>
+<li><p>Highest priority first with priority proportional to CPU burst length</p></li>
+</ol>
+<p><b>Ans . </b>(1).Shortest remaining time first</p>
+<p>Solution:</p>
+<p>Turnaround time is the total time taken by the process between starting and the completion and waiting time is the time for which process is ready to run but not executed by CPU scheduler. As we know, in all CPU Scheduling algorithms, shortest job first is optimal i.ie. it gives minimum turn round time, minimum average waiting time and high throughput and the most important thing is that shortest remaining time first is the pre-emptive version of shortest job first. shortest remaining time first scheduling algorithm may lead to starvation because If the short processes are added to the cpu scheduler continuously then the currently running process will never be able to execute as they will get pre-empted but here all the processes are arrived at same time so there will be no issue such as starvation.
+So, the answer is Shortest remaining time first, which is answer (1).</p>
+<br/><br/>
+
+
+<p><b>Q.8.</b>Consider a disk queue with requests for I/O to blocks on cylinders 47, 38, 121, 191, 87, 11, 92, 10. The C-LOOK scheduling algorithm is used. The head is initially at cylinder number 63, moving towards larger cylinder numbers on its servicing pass. The cylinders are numbered from 0 to 199. The total head movement (in number of cylinders) incurred while servicing these requests is:_________<b>(GATE 2016 CS01)</b>
+<ol>
+<li><p>346</p></li>
+<li><p>165</p></li>
+<li><p>154</p></li>
+<li><p>173</p></li>
+</ol>
+<p><b>Ans . </b>(2).165</p>
+<p>Solution:</p>
+<p>The head movement would be:
+<br/>
+63 => 87 24 movements</br>
+87 => 92 5 movements</br>
+92 => 121 29 movements</br>
+121 => 191 70 movements</br>
+191 --> 10 0 movement</br>
+10 => 11 1 movement</br>
+11 => 38 27 movements</br>
+38 => 47 9 movements</br>
+Total head movements = 165
+</p>
+<br/><br/>
+
+<p><b>Q.9.</b>Consider the following proposed solution for the critical section problem. There are n processes: P0 …Pn-1. In the code, function pmax returns an integer not smaller than any of its arguments. For all i, t[i] is initialized to zero.<b>(GATE 2016 CS02)</b>
+<p>Code for Pi:<br/>
+do {<br/>
+c[i]=1; t[i] = pmax(t[0],...,t[n-1])+1; c[i]=0;<br/>
+for every j 6= i in {0,...,n-1} {<br/>
+while (c[j]);<br/>
+while (t[j] != 0 && t[j]<=t[i]);<br/>
+}<br/>
+Critical Section;<br/>
+t[i]=0;<br/>
+Remainder Section;<br/>
+} while (true);<br/></p>
+<p>Which one of the following is TRUE about the above solution?</p>
+<ol>
+<li><p>At most one process can be in the critical section at any time</p></li>
+<li><p>The bounded wait condition is satisfied</p></li>
+<li><p>The progress condition is satisfied</p></li>
+<li><p>It cannot cause a deadlock</p></li>
+</ol>
+<p><b>Ans . </b>(1).At most one process can be in the critical section at any time</p>
+<p>Solution:</p>
+<p>Mutual exclusion  is satisfied:</br>
+All other processes j started before i must have value (i.e. t[j]) 
+less than the value of process i (i.e. t[i])  as function pMax() 
+return a integer not smaller  than any of its arguments. So if anyone 
+out of the processes j have positive value will be executing in its 
+critical section as long as the condition t[j] > 0 && t[j] <= t[i] within 
+while will persist. And when  this j process comes out of its critical 
+section, it sets t[j] = 0;  and next process will be selected in for loop.
+So when i process reaches to its critical section none of the  processes j 
+which started earlier before process i  is in its critical section. This 
+ensure that only one process is executing its critical section at a time.<br/><br/>
+Deadlock and progress are  not satisfied:<br/>  
+while (t[j] != 0 && t[j] <=t[i]); because of this condition deadlock is 
+possible when value of j process becomes equals to the value of process i 
+(i.e t[j] == t[i]).  because of the deadlock progess is also not possible 
+(i.e. Progess == no deadlock) as no one process is able to make progress  
+by stoping other process.<br/><br/>
+Bounded waiting is also not satisfied:<br/>
+In this case both deadlock and bounded waiting to be arising from the same 
+reason as if t[j] == t[i] is possible then starvation is possible means 
+infinite waiting.  
+</p>
+<br/><br/>
+
+<p><b>Q.10.</b>Consider the following processes, with the arrival time and the length of the CPU burst given
+in milliseconds. The scheduling algorithm used is preemptive shortest remaining-time first.<b>(GATE 2016 CS02)</b></p>
+<p><table border="1">
+<thead>
+<tr>
+<th>Process</th><th>Arrival Time</th><th>Burst time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P1</td><td>0</td><td>10</td>
+</tr>
+<tr>
+<td>P2</td><td>3</td><td>6</td>
+</tr>
+<tr>
+<td>P3</td><td>7</td><td>1</td>
+</tr>
+<tr>
+<td>P4</td><td>8</td><td>3</td>
+</tr>
+</tbody>
+</table>
+</p>
+
+<p>The average turn around time of these processes is __________ milliseconds.</p>
+<ol>
+<li><p>8.25</p></li>
+<li><p>10.25</p></li>
+<li><p>6.35</p></li>
+<li><p>4.25</p></li>
+</ol>
+<p><b>Ans . </b>8.25</p>
+<br/>
+<p>Solution to the above problem is given below:</p>
+<img src="images/solution5.jpg"
+  alt="priority encoder"
+  width="700"
+  height="500"
+  layout="responsive"
+  class="m1">
+  <noscript>
+    <img src="images/solution5.jpg" width="700" height="500" alt="priority encoder"> 
+  </noscript>
+</img><br/>
+<p>PreEmptive Shortest Remaining time first scheduling, i.e. that processes will be scheduled on the CPU which will be having least remaining burst time( required time at the CPU).
+
+The processes are scheduled and executed as given in the above Gantt chart.</P>
+<p>Turn Around Time(TAT) = Completion Time(CT) – Arrival Time(AT)
+
+TAT for P1 = 20 – 0 = 20
+
+TAT for P2 = 10 – 3 = 7
+
+TAT for P3 = 8- 7 = 1
+
+TAT for P4 = 13 – 8 = 5
+
+Hence, Average TAT = Total TAT of all the processes / no of processes = ( 20 + 7 + 1 + 5 ) / 4 = 33 / 4 = 8.25
+ 
+Thus, (1) is the correct choice.
+</p>
+
+<br/><br/>
+
+<p><b>Q.11.</b>Consider the following two-process synchronization solution<b>(GATE 2016 CS02)</b></p>
+<img src="images/solution6.jpg">
+<p>The shared variable turn is initialized to zero. Which one of the following is TRUE?</p>
+<ol>
+<li><p>This is a correct two-process synchronization solution.</p></li>
+<li><p>This solution violates mutual exclusion requirement.</p></li>
+<li><p>This solution violates progress requirement.</p></li>
+<li><p>This solution violates bounded wait requirement.</p></li>
+</ol>
+<p><b>Ans . </b>(3).This solution violates progress requirement.</p>
+<p>Solution:</p>
+<p>Mutual exclusion  is satisfied:</br>
+Process P0 and P1 could not have successfully executed their while 
+statements at the same time as value of ‘turn’ can either be 0 or 1 
+but can’t be both at the same time. Lets say, when process P0 executing 
+its while statements with the condition “turn == 1”, So this condition 
+will persist as long as process P1 is executing its critical section. And 
+when P1 comes out from its critical section it changes the value of  ‘turn’ 
+to 0 in exit section and because of that time P0 comes out from the its while 
+loop and enters into its critical section. Therefore only one process is 
+able to execute its critical section at a time.<br/><br/>
+It also satisfies bounded waiting:<br/>  
+It is limit on number of times that other process is allowed to enter its
+ critical section after a process has made a request to enter its critical 
+section and before that request is granted. Lets say, P0 wishes to enter into
+ its critical section, it will definitely get a chance to enter into its critical
+ section after at most one entry made by p1 as after executing its critical section
+ it will set ‘turn’ to 0 (zero). And vice-versa (strict alteration).<br/><br/>
+Progess is also not satisfied:<br/>
+Because of strict alternation no process can stop other process from entering into 
+its critical section.
+</p>
+<br/><br/>
+
+<p><b>Q.12.</b>Consider a non-negative counting semaphore S. The operation P(S) decrements S, and V(S) increments S. During an execution, 20 P(S) operations and 12 V(S) operations are issued in some order. The largest initial value of S for which at least one P(S) operation will remain blocked is ________.<b>(GATE 2016 CS02)</b>
+<ol>
+<li><p>7</p></li>
+<li><p>8</p></li>
+<li><p>9</p></li>
+<li><p>10</p></li>
+</ol>
+<p><b>Ans . </b>(1).7</p>
+<p>Explanation:</p>
+<p> 20-7 -> 13 will be in blocked state, when we perform 12 V(S) operation makes 12 more process to get chance for execution from blocked state. So one process will be left in the queue (blocked state) here I have considered that if a process is in under CS then it not get blocked by other process.</p>
+<br/><br/>
+
+<p><b>Q.13.</b>Consider a uniprocessor system executing three tasks T1, T2 and T3, each of which is composed of an infinite sequence of jobs (or instances) which arrive periodically at intervals of 3, 7 and 20 milliseconds, respectively. The priority of each task is the inverse of its period and the available tasks are scheduled in order of priority, with the highest priority task scheduled first. Each instance of T1, T2 and T3 requires an execution time of 1, 2 and 4 milliseconds, respectively. Given that all tasks initially arrive at the beginning of the 1st milliseconds and task preemptions are allowed, the first instance of T3 completes its execution at the end of ______________ milliseconds.<b>(GATE 2015 CS01)</b>
+<ol>
+<li><p>5</p></li>
+<li><p>10</p></li>
+<li><p>12</p></li>
+<li><p>15</p></li>
+</ol>
+<p><b>Ans . </b>(3).12</p>
+<p>Explanation:</p>
+<p>Periods of T1, T2 and T3 are 3ms, 7ms and 20ms
+
+Since priority is inverse of period, T1 is the highest 
+priority task, then T2 and finally T3
+
+Every instance of T1 requires 1ms, that of T2 requires 
+2ms and that of T3 requires 4ms
+
+Initially all T1, T2 and T3 are ready to get processor, 
+T1 is preferred
+
+Second instances of T1, T2, and T3 shall arrive at 3, 7, 
+and 20 respectively.
+
+Third instance of T1, T2 and T3 shall arrive at 6, 14, 
+and 49 respectively.<br/> 
+<table border="1">
+<thead>
+<th>Time-Interval</th><th>Tasks</th>
+</thead>
+<tbody>
+<tr>
+<th>0-1</th><th>T1</th>
+</tr>
+<tr>
+<th>1-2</th><th>T2</th>
+</tr>
+<tr>
+<th>2-3</th><th>T2</th>
+</tr>    
+<tr>
+<th>3-4</th><th>T1  [Second Instance of T1 arrives] </th>
+</tr>   
+<tr>
+<th>4-5</th><th>T3</th>
+</tr> 
+<tr>
+<th>5-6</th><th>T3</th>
+</tr>  
+<tr>
+<th>6-7</th><th>T1  [Third Instance of T1 arrives]  [Therefore T3 is preempted]  </th>
+</tr> 
+<tr>
+<th>7-8</th><th>T2  [Second instance of T2 arrives]</th>
+</tr> 
+<tr>
+<th>8-9</th><th>T2</th>
+</tr>                           
+<tr>
+<th>9-10</th><th>T1[Fourth Instance of T1 arrives] </th>
+</tr>
+<tr>
+<th>10-11</th><th>T3</th>
+</tr>
+<tr>
+<th>11-12</th><th>T3 [First Instance of T3 completed]</th>
+</tr>
+</tbody>
+</table>                            
+</p>
+<br/><br/>
+
+
+<p><b>Q.14.</b>Consider a disk pack with a seek time of 4 milliseconds and rotational speed of 10000 rotations per minute (RPM). It has 600 sectors per track and each sector can store 512 bytes of data. Consider a file stored in the disk. The file contains 2000 sectors. Assume that every sector access necessitates a seek, and the average rotational latency for accessing each sector is half of the time for one complete rotation. The total time (in milliseconds) needed to read the entire file is _________.<b>(GATE 2015 CS01)</b>
+<ol>
+<li><p>14020</p></li>
+<li><p>14000</p></li>
+<li><p>25030</p></li>
+<li><p>15000</p></li>
+</ol>
+<p><b>Ans . </b>(1).14020</p>
+<p>Explanation:</p>
+<p>Seek time (given) = 4ms</br>
+
+RPM = 10000 rotation in 1 min [60 sec]</br>
+So, 1 rotation will be =60/10000 =6ms [rotation speed]</br>
+Rotation latency= 1/2 * 6ms=3ms</br>
+# To access a file, </br>
+  total time includes =seek time + rot. latency +transfer time</br>
+TO calc. transfer time, find transfer rate</br>
+
+Transfer rate = bytes on track /rotation speed</br>
+so, transfer rate = 600*512/6ms =51200 B/ms</br>
+
+transfer time= total bytes to be transferred/ transfer rate</br>
+so, Transfer time =2000*512/51200 = 20ms</br>
+
+Given as each sector requires seek tim + rot. latency</br>
+= 4ms+3ms =7ms</br>
+
+Total 2000 sector takes = 2000*7 ms =14000 ms</br>
+To read entire file ,total time = 14000 + 20(transfer time)
+                                = 14020 ms</p>
+<br/><br/>
+
+<p><b>Q.15.</b>Suppose the following disk request sequence (track numbers) for a disk with 100 tracks is given: 45, 20, 90, 10, 50, 60, 80, 25, 70. Assume that the initial position of the R/W head is on track 50. The additional distance that will be traversed by the R/W head when the Shortest Seek Time First (SSTF) algorithm is used compared to the SCAN (Elevator) algorithm (assuming that SCAN algorithm moves towards 100 when it starts execution) is _________ tracks<b>(GATE 2015 CS01)</b>
+<ol>
+<li><p>8</p></li>
+<li><p>9</p></li>
+<li><p>10</p></li>
+<li><p>11</p></li>
+</ol>
+<p><b>Ans . </b>(3).10</p>
+<p>Explanation:</p>
+<p>
+In Shortest seek first (SSTF), closest request to the current position of the head, and then services that request next.</br>
+
+In SCAN (or Elevator) algorithm, requests are serviced only in the current direction of arm movement until the arm reaches the edge of the disk. When this happens, the direction of the arm reverses, and the requests that were remaining in the opposite direction are serviced, and so on.</br>
+
+Given a disk with 100 tracks </br>
+
+And Sequence 45, 20, 90, 10, 50, 60, 80, 25, 70.</br>
+
+Initial position of the R/W head is on track 50.</br>
+
+In SSTF, requests are served as following:<br/> 
+<table border="1">
+<thead>
+<th>Next served</th><th>Distance travelled</th>
+</thead>
+<tbody>
+<tr>
+<th>50</th><th>0</th>
+</tr>
+<tr>
+<th>45</th><th>5</th>
+</tr>
+<tr>
+<th>60</th><th>15</th>
+</tr>    
+<tr>
+<th>70</th><th>10</th>
+</tr>   
+<tr>
+<th>80</th><th>10</th>
+</tr> 
+<tr>
+<th>90</th><th>10</th>
+</tr>  
+<tr>
+<th>25</th><th>65</th>
+</tr> 
+<tr>
+<th>20</th><th>5</th>
+</tr> 
+<tr>
+<th>10</th><th>10</th>
+</tr>                           
+</tbody>
+<tfoot>
+<th>Total distance</th><th>=130</th>
+</tfoot>
+</table>
+</br>If Simple SCAN is used, requests are served as following:</br></br>
+<table border="1">
+<thead>
+<th>Next served</th><th>Distance travelled</th>
+</thead>
+<tbody>
+<tr>
+<th>50</th><th>0</th>
+</tr>
+<tr>
+<th>60</th><th>10</th>
+</tr>
+<tr>
+<th>70</th><th>10</th>
+</tr>    
+<tr>
+<th>80</th><th>10</th>
+</tr>   
+<tr>
+<th>90</th><th>10</th>
+</tr> 
+<tr>
+<th>45</th><th>65(Disk arm goes to 100, then 45)</th>
+</tr>  
+<tr>
+<th>25</th><th>20</th>
+</tr> 
+<tr>
+<th>20</th><th>5</th>
+</tr> 
+<tr>
+<th>10</th><th>10</th>
+</tr>                           
+</tbody>
+<tfoot>
+<th>Total distance</th><th>=140</th>
+</tfoot>
+</table>
+</br>Less Distance traveled in SSTF = 130 - 140 =  10</br> 
+</br>Therefore, it is not additional but it is less distance traversed by SSTF than SCAN.                            
+</p>
+<br/><br/>
+<p><b>Q.16.</b>Consider a typical disk that rotates at 15000 rotations per minute (RPM) and has a transfer rate of 50 × 106 bytes/sec. If the average seek time of the disk is twice the average rotational delay and the controller’s transfer time is 10 times the disk transfer time, the average time (in milliseconds) to read or write a 512 byte sector of the disk is _____________<b>(GATE 2015 CS02)</b>
+<p><b>Ans:</b>6.1</p>
+<p>Explanation:</p>
+<p>Disk latency = Seek Time + Rotation Time + Transfer Time + Controller Overhead</br>
+Seek Time? Depends no. tracks the arm moves and seek speed of disk</br>
+Rotation Time? depends on rotational speed and how far the sector is from the head </br>
+Transfer Time? depends on data rate (bandwidth) of disk (bit density) and the size of request</br>
+
+Disk latency = Seek Time + Rotation Time + Transfer Time + Controller Overhead</br>
+
+Average Rotational Time = (0.5)/(15000 / 60) = 2 miliseconds</br>
+[On average half rotation is made]</br>
+
+It is given that the average seek time is twice the average rotational delay</br>
+So Avg. Seek Time =  2 * 2 = 4 miliseconds.</br>
+
+Transfer Time = 512 / (50 × 106 bytes/sec)= 10.24 microseconds</br>
+
+Given that controller time is 10 times the average transfer time</br>
+Controller Overhead = 10 * 10.24 microseconds= 0.1 miliseconds</br>
+
+Disk latency = Seek Time + Rotation Time + Transfer Time + Controller Overhead</br>
+             = 4 + 2 + 10.24 * 10-3 + 0.1 miliseconds= 6.1 miliseconds</p>
+<br/><br/>
+
+<p><b>Q.17.</b>Consider the procedure below for the Producer-Consumer problem which uses semaphores(GATE 2014 CS02)</b></p>
+<img src="images/solution7.png">
+<p>Which one of the following is TRUE?</p>
+<ol>
+<li><p>The producer will be able to add an item to the buffer, but the consumer can never consume it.</p></li>
+<li><p>The consumer will remove no more than one item from the buffer.</p></li>
+<li><p>Deadlock occurs if the consumer succeeds in acquiring semaphore s when the buffer is empty.</p></li>
+<li><p>The starting value for the semaphore n must be 1 and not 0 for deadlock-free operation.</p></li>
+</ol>
+<p><b>Ans:</b>(3).Deadlock occurs if the consumer succeeds in acquiring semaphore s when the buffer is empty.</p>
+<p>Explanation:</p>
+<p>Initially, there is no element in the buffer.</br>
+
+Semaphore s = 1 and semaphore n = 0.</br>
+
+We assume that initially control goes to the consumer when buffer is empty.</br>
+
+
+semWait(s) decrements the value of semaphore ‘s’ . Now, s = 0 and semWait(n) decrements the value of semaphore ‘n’.</br>
+
+Since, the value of semaphore ‘n’ becomes less than 0 , the control stucks in while loop of function semWait() and a deadlock arises.</br>
+
+ 
+Thus, deadlock occurs if the consumer succeeds in acquiring semaphore s when the buffer is empty.</p>
+<br/><br/>
+
+<p><b>Q.18</b>Three processes A, B and C each execute a loop of 100 iterations. In each iteration of the loop, a process performs a single computation that requires tc CPU milliseconds and then initiates a single I/O operation that lasts for tio milliseconds. It is assumed that the computer where the processes execute has sufficient number of I/O devices and the OS of the computer assigns different I/O devices to each process. Also, the scheduling overhead of the OS is negligible. The processes have the following characteristics:(GATE 2014 CS02)</b></p>
+<table>
+<thead>
+<th>Process id</th><th>tc</th><th>tio</th>
+</thead>
+<tbody>
+<tr>
+<th>A</th><th>100ms</th><th>500ms</th>
+</tr>
+<tr>
+<th>B</th><th>350ms</th><th>500ms</th>
+</tr>
+<tr>
+<th>C</th><th>200ms</th><th>500ms</th>
+</tr>
+</tbody>
+</table>
+<p>The processes A, B, and C are started at times 0, 5 and 10 milliseconds respectively, in a pure time sharing system (round robin scheduling) that uses a time slice of 50 milliseconds. The time in milliseconds at which process C would complete its first I/O operation is ___________.</p>
+<ol>
+<li><p>500</p></li>
+<li><p>1000</p></li>
+<li><p>2000</p></li>
+<li><p>10000</p></li>
+</ol>
+<p><b>Ans:</b>(2).1000</p>
+<p>Explanation:</p>
+<p>There are three processes A, B and C that run in 
+round robin manner with time slice of 50 ms.</br>
+
+Processes atart at 0, 5 and 10 miliseconds.</br>
+
+The processes are executed in below order</br>
+A, B, C, A </br>
+50 + 50 + 50 + 50 (200 ms passed)</br>
+
+Now A has completed 100 ms of computations and 
+goes for I/O now</br>
+
+B, C, B, C, B, C</br>
+50 + 50 + 50 + 50 + 50 + 50 (300 ms passed)</br>
+
+C goes for i/o at 500ms and it needs 500ms to
+finish the IO.</br>
+
+So C would complete its first IO at 1000 ms</p>
+<br/><br/>
+
+<p><b>Q.19</b>Suppose a disk has 201 cylinders, numbered from 0 to 200. At some time the disk arm is at cylinder 100, and there is a queue of disk access requests for cylinders 30, 85, 90, 100, 105, 110, 135 and 145. If Shortest-Seek Time First (SSTF) is being used for scheduling the disk access, the request for cylinder 90 is serviced after servicing ____________ number of requests.(GATE 2014 CS01)</b></p>
+<ol>
+<li><p>1</p></li>
+<li><p>2</p></li>
+<li><p>3</p></li>
+<li><p>4</p></li>
+</ol>
+<p><b>Ans:</b>(3).3</p>
+<p>Explanation:</p>
+<p> In Shortest-Seek-First algorithm, request closest to the current position of the disk arm and head is handled first.</br>
+
+In this question, the arm is currently at cylinder number 100. Now the requests come in the queue order for cylinder numbers 30, 85, 90, 100, 105, 110, 135 and 145.</br>
+
+The disk will service that request first whose cylinder number is closest to its arm. Hence 1st serviced request is for cylinder no 100 ( as the arm is itself pointing to it ), then 105, then 110, and then the arm comes to service request for cylinder 90. Hence before servicing request for cylinder 90, the disk would had serviced 3 requests.</br>
+
+Hence option C.
+</p>
+<br/><br/>
+
+<p><b>Q.20</b>Which one of the following is FALSE?(GATE 2014 CS01)</b></p>
+<ol>
+<li><p>User level threads are not scheduled by the kernel.</p></li>
+<li><p>When a user level thread is blocked, all other threads of its process are blocked.</p></li>
+<li><p>Context switching between user level threads is faster than context switching between kernel level threads.</p></li>
+<li><p>Kernel level threads cannot share the code segment</p></li>
+</ol>
+<p><b>Ans:</b>(4).Kernel level threads cannot share the code segment</p>
+<br/><br/>
+
+<p><b>Q.21</b>Consider the following set of processes that need to be scheduled on a single CPU. All the times are given in milliseconds.(GATE 2014 CS01)</b></p>
+<table>
+<thead>
+<th>Process name</th><th>Arrival time</th><th>Execution time</th>
+</thead>
+<tbody>
+<tr>
+<th>A</th><th>0</th><th>6</th>
+</tr>
+<tr>
+<th>B</th><th>3</th><th>2</th>
+</tr>
+<tr>
+<th>C</th><th>5</th><th>4</th>
+</tr>
+<tr>
+<th>D</th><th>7</th><th>6</th>
+</tr>
+<tr>
+<th>E</th><th>10</th><th>3</th>
+</tr>
+</tbody>
+</table>
+<p>Using the shortest remaining time first scheduling algorithm, the average process turnaround time (in msec) is ____________________.</p>
+<ol>
+<li><p>7.2</p></li>
+<li><p>8</p></li>
+<li><p>7</p></li>
+<li><p>7.5</p></li>
+</ol>
+<p><b>Ans:</b>(1). <b>7.2</b></p>
+<p>Explanation:</br>Turn around time of a process is total time between submission of the process and its completion.</br>Shortest remaining time (SRT) scheduling algorithm selects the process for execution which has the smallest amount of time remaining until completion.</p>
+<p>Solution:</br>
+Let the processes be A, ,C,D and E. These processes will be executed in following order. Gantt chart is as follows:
+<img src="images/solution8.png">
+</br>First 3 sec, A will run, then remaining time A=3, B=2,C=4,D=6,E=3 Now B will get chance to run for 2 sec, then remaining time. A=3, B=0,C=4,D=6,E=3</br>
+Now A will get chance to run for 3 sec, then remaining time. A=0, B=0,C=4,D=6,E=3 By doing this way, you will get above gantt chart.</br>
+Scheduling table:</br>
+<img src="images/solution9.png">
+</br>As we know, turn around time is total time between submission of the process and its completion. i.e turn around time=completion time-arrival time. i.e. TAT=CT-AT</br>
+Turn around time of A = 8 (8-0)</br>
+Turn around time of B = 2 (5-3)</br>
+Turn around time of C = 7 (12-5)</br>
+Turn around time of D = 14 (21-7)</br>
+Turn around time of E = 5 (15-10)</br>
+Average turn around time is (8+2+7+14+5)/5 = 7.2</br>
+Answer is 7.2
+</p>
+<br/><br/>
+
+<p><b>Q.22</b>A scheduling algorithm assigns priority proportional to the waiting time of a process. Every process starts with priority zero (the lowest priority). The scheduler re-evaluates the process priorities every T time units and decides the next process to schedule. Which one of the following is TRUE if the processes have no I/O operations and all arrive at time zero?(GATE 2013 CS01)</b></p>
+<ol>
+<li><p>This algorithm is equivalent to the first-come-first-serve algorithm</p></li>
+<li><p>This algorithm is equivalent to the round-robin algorithm.</p></li>
+<li><p>This algorithm is equivalent to the shortest-job-first algorithm..</p></li>
+<li><p>This algorithm is equivalent to the shortest-remaining-time-first algorithm</p></li>
+</ol>
+<p><b>Ans:</b>(2).This algorithm is equivalent to the round-robin algorithm.</p>
+<p>Explanation:</br>The scheduling algorithm works as round robin with quantum time equals to T.<br/> After a process’s turn comes and it has executed for T units, its waiting time becomes least and its turn comes again after every other process has got the token for T units.<br/></p>
+<br/><br/>
+
+<p><b>Q.23</b>Three concurrent processes X, Y, and Z execute three different code segments that access and update certain shared variables. Process X executes the P operation (i.e., wait) on semaphores a, b and c; process Y executes the P operation on semaphores b, c and d; process Z executes the P operation on semaphores c, d, and a before entering the respective code segments. After completing the execution of its code segment, each process invokes the V operation (i.e., signal) on its three semaphores. All semaphores are binary semaphores initialized to one. Which one of the following represents a deadlock-free order of invoking the P operations by the processes?(GATE 2013 CS01)</b></p>
+<ol>
+<li><p>X: P(a)P(b)P(c) Y: P(b)P(c)P(d) Z: P(c)P(d)P(a)</p></li>
+<li><p>X: P(b)P(a)P(c) Y: P(b)P(c)P(d) Z: P(a)P(c)P(d)</p></li>
+<li><p>X: P(b)P(a)P(c) Y: P(c)P(b)P(d) Z: P(a)P(c)P(d)</p></li>
+<li><p>X: P(a)P(b)P(c) Y: P(c)P(b)P(d) Z: P(c)P(d)P(a)</p></li>
+</ol>
+<p><b>Ans:</b>(2).X: P(b)P(a)P(c) Y: P(b)P(c)P(d) Z: P(a)P(c)P(d)</p>
+<p>Explanation:</p>
+<p>Option A can cause deadlock. Imagine a situation process X has acquired a, process Y has acquired b and process Z has acquired c and d. There is circular wait now.</br>
+
+Option C can also cause deadlock. Imagine a situation process X has acquired b, process Y has acquired c and process Z has acquired a. There is circular wait now.</br>
+
+Option D can also cause deadlock. Imagine a situation process X has acquired a and b, process Y has acquired c. X and Y circularly waiting for each other.</br>
+Consider option A) for example here all 3 processes are concurrent so X will get semaphore a, Y will get b and Z will get c, now X is blocked for b, Y is blocked for c, Z gets d and blocked for a. Thus it will lead to deadlock.<br/>
+
+Similarly one can figure out that for B) completion order is Z,X then Y.<br/>
+</p>
+<br/><br/>
+
+<p><b>Q.24</b>A shared variable x, initialized to zero, is operated on by four concurrent processes W, X, Y, Z as follows. Each of the processes W and X reads x from memory, increments by one, stores it to memory, and then terminates. Each of the processes Y and Z reads x from memory, decrements by two, stores it to memory, and then terminates. Each process before reading x invokes the P operation (i.e., wait) on a counting semaphore S and invokes the V operation (i.e., signal) on the semaphore S after storing x to memory. Semaphore S is initialized to two. What is the maximum possible value of x after all processes complete execution?(GATE 2013 CS01)</b></p>
+<ol>
+<li><p>-2</p></li>
+<li><p>-1</p></li>
+<li><p>1</p></li>
+<li><p>2</p></li>
+</ol>
+<p><b>Ans:</b>(4).2</p>
+<p>Explanation:</br>Background Explanation:<br/>
+A critical section in which the process may be changing common variables, updating table, writing a file and perform another function. The important problem is that if one process is executing in its critical section, no other process is to be allowed to execute in its critical section. Each process much request permission to enter its critical section. A semaphore is a tool for synchronization and it is used to remove the critical section problem which is that no two processes can run simultaneously together so to remove this two signal operations are used named as wait and signal which is used to remove the mutual exclusion of the critical section. as an unsigned one of the most important synchronization primitives, because you can build many other Decrementing the semaphore is called acquiring or locking it, incrementing is called releasing or unlocking.<br/></p>
+<p>Solution:</br>Since initial value of semaphore is 2, two processes can enter critical section at a time- this is bad and we can see why.
+Say, X and Y be the processes.X increments x by 1 and Z decrements x by 2.<br/>Now, Z stores back and after this X stores back.<br/>So, final value of x is 1 and not -1 and two Signal operations make the semaphore value 2 again.<br/>So, now W and Z can also execute like this and the value of x can be 2 which is the maximum possible in any order of execution of the processes.<br/>(If the semaphore is initialized to 1, processed would execute correctly and we get the final
+value of x as -2.)<br/>
+Option (D) is the correct answer.<br/></p>
+<br/><br/>
+
+<p><b>Q.25</b>A process executes the code<br/>
+ fork();<br/>
+ fork();<br/>
+ fork();<br/>
+The total number of child processes created is(GATE 2012 CS01)</b></p>
+<ol>
+<li><p>3</p></li>
+<li><p>4</p></li>
+<li><p>7</p></li>
+<li><p>8</p></li>
+</ol>
+<p><b>Ans:</b>(3).7</p>
+<br/><br/>
+
+<p><b>Q.26</b>Consider the 3 processes, P1, P2 and P3 shown in the table.(GATE 2012 CS01)</b></p>
+<table>
+<thead>
+<th>Process</th><th>Arrival time</th><th>Time Units Required</th>
+</thead>
+<tbody>
+<tr>
+<th>P1</th><th>0</th><th>5</th>
+</tr>
+<tr>
+<th>P2</th><th>1</th><th>7</th>
+</tr>
+<tr>
+<th>P3</th><th>3</th><th>4</th>
+</tr>
+</tbody>
+</table>
+<p>The completion order of the 3 processes under the policies FCFS and RR2 (round robin scheduling with CPU quantum of 2 time units) are ____________________.</p>
+<ol>
+<li><p>FCFS: P1, P2, P3<br/>
+ RR2: P1, P2, P3</p></li>
+<li><p>FCFS: P1, P3, P2<br/>
+ RR2: P1, P3, P2</p></li>
+<li><p>FCFS: P1, P2, P3<br/>
+ RR2: P1, P3, P2</p></li>
+<li><p>FCFS: P1, P3, P2<br/> 
+RR2: P1, P2, P3</p></li>
+</ol>
+<p><b>Ans:</b>(3).FCFS: P1, P2, P3<br/>
+ RR2: P1, P3, P2</p>
+<p>Explanation:</p>
+<p>FCFS is clear.<br/>  
+In RR, time slot is of 2 units.<br/>  
+Processes are assigned in following order<br/>
+p1, p2, p1, p3, p2, p1, p3, p2, p2<br/>.
+This question involves the concept of ready queue.<br/>At t=2, p2 starts and p1 is sent to the ready queue and at t=3 p3 arrives so then the job p3 is queued in ready queue after p1. So at t=4, again p1 is executed then p3 is executed for first time at t=6.
+</p>
+<br/><br/>
+
+<p><b>Q.27</b>A thread is usually defined as a ‘light weight process’ because an operating system (OS) maintains smaller data structures for a thread than for a process. In relation to this, which of the followings is TRUE?(GATE 2011 CS01)</b></p>
+<ol>
+<li><p>On per-thread basis, the OS maintains only CPU register state</p></li>
+<li><p>The OS does not maintain a separate stack for each thread</p></li>
+<li><p> On per-thread basis, the OS does not maintain virtual memory state</p></li>
+<li><p>On per thread basis, the OS maintains only scheduling and accounting information.</p></li>
+</ol>
+<p><b>Ans:</b>(3).On per-thread basis, the OS does not maintain virtual memory state</p>
+<p>Explanation:</p>
+<p>Threads share address space of Process.<br/>Virtually memory is concerned with processes not with Threads.</p>
+<br/><br/>
+
+<p><b>Q.28</b>Let the page fault service time be 10ms in a computer with average memory access time being 20ns. If one page fault is generated for every 10^6 memory accesses, what is the effective access time for the memory?(GATE 2011 CS01)</b></p>
+<ol>
+<li><p>21ns</p></li>
+<li><p>30ns</p></li>
+<li><p>23ns</p></li>
+<li><p>35ns</p></li>
+</ol>
+<p><b>Ans:</b>(2).30ns</p>
+<p>Explanation:</p>
+<p>Let P be the page fault rate
+Effective Memory Access Time = p * (page fault service time) + 
+                               (1 - p) * (Memory access time)<br/>
+                             = ( 1/(10^6) )* 10 * (10^6) ns +
+                               (1 - 1/(10^6)) * 20 ns<br/>
+                             = 30 ns (approx)    </p>
+<br/><br/>
+
+<p><b>Q.29</b>An application loads 100 libraries at startup. Loading each library requires exactly one disk access. The seek time of the disk to a random location is given as 10ms. Rotational speed of disk is 6000rpm. If all 100 libraries are loaded from random locations on the disk, how long does it take to load all libraries? (The time to transfer data from the disk block once the head has been positioned at the start of the block may be neglected)(GATE 2011 CS01)</b></p>
+<ol>
+<li><p>0.50s</p></li>
+<li><p>1.50s</p></li>
+<li><p>1.25s</p></li>
+<li><p>1.00s</p></li>
+</ol>
+<p><b>Ans:</b>(2).1.50s</p>
+<p>Explanation:</p>
+<p>Since transfer time can be neglected, the average access time is sum of average seek time and average rotational latency.<br/>Average seek time for a random location time is given as 10 ms.<br/>The average rotational latency is half of the time needed for complete rotation.<br/>It is given that 6000 rotations need 1 minute.<br/>So one rotation will take 60/6000 seconds which is 10 ms.<br/>Therefore average rotational latency is half of 10 ms, which is 5ms.<br/>Average disk access time = seek time + rotational latency<br/> 
+                         = 10 ms + 5 ms<br/> 
+                         = 15 ms<br/>
+For 100 libraries, the average disk access time will be 15*100 ms</p>
+<br/><br/>
+
+<p><b>Q.30</b>Consider the following table of arrival time and burst time for three processes P0, P1 and P2.(GATE 2011 CS01)</b></p>
+<table>
+<thead>
+<th>Process name</th><th>Arrival time</th><th>Burst time</th>
+</thead>
+<tbody>
+<tr>
+<th>P0</th><th>0ms</th><th>9ms</th>
+</tr>
+<tr>
+<th>P1</th><th>1ms</th><th>4ms</th>
+</tr>
+<tr>
+<th>P2</th><th>2ms</th><th>9ms</th>
+</tr>
+</tbody>
+</table>
+<p>The pre-emptive shortest job first scheduling algorithm is used. Scheduling is carried out only at arrival or completion of processes. What is the average waiting time for the three processes?</p>
+<ol>
+<li><p>5.0 ms</p></li>
+<li><p>4.33 ms</p></li>
+<li><p>6.33 ms</p></li>
+<li><p>7.33 ms</p></li>
+</ol>
+<p><b>Ans:</b>(1).5.0 ms</p>
+<p>Explanation:</p>
+<p>Process P0 is allocated processor at 0 ms as there is no other process in ready queue.<br/>P0 is preempted after 1 ms as P1 arrives at 1 ms and burst time for P1 is less than remaining time of P0. P1 runs for 4ms.<br/>P2 arrived at 2 ms but P1 continued as burst time of P2 is longer than P1. After P1 completes, P0 is scheduled again as the remaining time for P0 is less than the burst time of P2.<br/>
+P0 waits for 4 ms, P1 waits for 0 ms amd P2 waits for 11 ms.<br/>So average waiting time is (0+4+11)/3 = 5.</p>
+<br/><br/>
+
+<p><b>Q.31.</b>Consider the methods used by processes P1 and P2 for accessing their critical sections whenever needed, as given below. The initial values of shared boolean variables S1 and S2 are randomly assigned.<b>(GATE 2010 CS01)</b></p>
+<p>Method Used by P1<br/>
+while (S1 == S2) ;<br/>
+Critica1 Section<br/>
+S1 = S2;<br/>
+
+Method Used by P2<br/>
+while (S1 != S2) ;<br/>
+Critica1 Section<br/>
+S2 = not (S1);</p>
+<p>Which one of the following statements describes the properties achieved?</p>
+<ol>
+<li><p>Mutual exclusion but not progress</p></li>
+<li><p>Progress but not mutual exclusion</p></li>
+<li><p>Neither mutual exclusion nor progress</p></li>
+<li><p>Both mutual exclusion and progress</p></li>
+</ol>
+<p><b>Ans . </b>(1).Mutual exclusion but not progress</p>
+<p>Solution:</p>
+<p>Mutual exclusion  is satisfied:</br>
+A way of making sure that if one process is using a shared modifiable data, the other processes will be excluded from doing the same thing. while one process executes the shared variable, all other processes desiring to do so at the same time moment should be kept waiting; when that process has finished executing the shared variable, one of the processes waiting; while that process has finished executing the shared variable, one of the processes waiting to do so should be allowed to proceed. In this fashion, each process executing the shared data (variables) excludes all others from doing so simultaneously. This is called Mutual Exclusion.<br/><br/>
+Progress Requrement:<br/>  
+If no process is executing in its critical section and there exist some processes that wish to enter their critical section, then the selection of the processes that will enter the critical section next cannot be postponed indefinitely.<br/><br/>
+Solution:<br/>
+It can be easily observed that the Mutual Exclusion requirement is satisfied by the above solution, P1 can enter critical section only if S1 is not equal to S2, and P2 can enter critical section only if S1 is equal to S2. But here Progress Requirement is not satisfied. Suppose when s1=1 and s2=0 and process p1 is not interested to enter into critical section but p2 want to enter critical section. P2 is not able to enter critical section in this as only when p1 finishes execution, then only p2 can enter (then only s1 = s2 condition be satisfied). Progress will not be satisfied when any process which is not interested to enter into the critical section will not allow other interested process to enter into the critical section.<br/>
+</p>
+<br/><br/>
+
+<p><b>Q.32.</b>Which of the following statements are true? <b>(GATE 2010)</b>
+<br/>
+<p>I.Shortest remaining time first scheduling may cause starvation</p>
+<p>II.Preemptive scheduling may cause starvation</p>
+III.Round robin is better than FCFS in terms of response time</p>
+
+<ol>
+<li><p>I only</p></li>
+<li><p>I and III only</p></li>
+<li><p>II and III only</p></li>
+<li><p>I, II and III</p></li>
+</ol>
+<p><b>Ans . </b>(4).I, II and III</p>
+<p>Solution:</p>
+<p>I) Shortest remaining time first scheduling is a preemptive version of shortest job scheduling.It may cause starvation as shorter processes may keep coming and a long CPU burst process never gets CPU.<br/>
+II) Preemption may cause starvation.If priority based scheduling with preemption is used, then a low priority process may never get CPU.<br/>
+III) Round Robin Scheduling improves response time as all processes get CPU after a specified time.</p>
+<br/><br/>
 
 
 </body>
