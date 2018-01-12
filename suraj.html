@@ -1027,6 +1027,308 @@ II) Preemption may cause starvation.If priority based scheduling with preemption
 III) Round Robin Scheduling improves response time as all processes get CPU after a specified time.</p>
 <br/><br/>
 
+<p><b>Q.33.</b>Consider a system with 4 types of resources R1 (3 units), R2 (2 units), R3 (3 units), R4 (2 units). A non-preemptive resource allocation policy is used. At any given instance, a request is not entertained if it cannot be completely satisfied. Three processes P1, P2, P3 request the sources as follows if executed independently. <b>(GATE 2009)</b>
+</br>
+<strong>Process P1: </strong>
+</br>
+t=0: requests 2 units of R2</br>
+t=1: requests 1 unit of R3</br> 
+t=3: requests 2 units of R1</br> 
+t=5: releases 1 unit of R2 and 1 unit of R1.</br> 
+t=7: releases 1 unit of R3</br> 
+t=8: requests 2 units of R4</br> 
+t=10: Finishes</br>
+<strong>Process P2: </strong></br>
+t=0: requests 2 units of R3</br> 
+t=2: requests 1 unit of R4</br> 
+t=4: requests 1 unit of R1</br> 
+t=6: releases 1 unit of R3</br> 
+t=8: Finishes</br>
+<strong>Process P3: </strong></br>
+t=0: requests 1 unit of R4</br> 
+t=2: requests 2 units of R1</br> 
+t=5: releases 2 units of R1</br> 
+t=7: requests 1 unit of R2</br> 
+t=8: requests 1 unit of R3</br> 
+t=9: Finishes</br>
+Which one of the following statements is TRUE if all three processes run concurrently starting at time t=0?</br></p>
+<ol>
+<li><p>All processes will finish without any deadlock</p></li>
+<li><p> Only P1 and P2 will be in deadlock.</p></li>
+<li><p>Only P1 and P3 will be in a deadlock.</p></li>
+<li><p>All three processes will be in deadlock</p></li>
+</ol>
+<p><b>Ans . </b>(1).All processes will finish without any deadlock</p>
+ <p><b>Explanation:</b></p>
+<p>We can apply the following Deadlock Detection algorithm and see that there is no process waiting indefinitely for a resource.</p>
+<br/><br/>
+
+<p><b>Q.34.</b>Consider a disk system with 100 cylinders. The requests to access the cylinders occur in following sequence:
+4, 34, 10, 7, 19, 73, 2, 15, 6, 20
+Assuming that the head is currently at cylinder 50, what is the time taken to satisfy all requests if it takes 1ms to move from one cylinder to adjacent one and shortest seek time first policy is used?<b>(GATE 2009)</b></p>
+<br/>
+<ol>
+<li><p>95 ms</p></li>
+<li><p>119 ms</p></li>
+<li><p>233 ms</p></li>
+<li><p>276 ms</p></li>
+</ol>
+<p><b>Ans . </b>(2).119 ms</p>
+<p>Explanation:</p>
+<p>4, 34, 10, 7, 19, 73, 2, 15, 6, 20<br/>
+Since shortest seek time first policy is used, head will first move to 34. This move will cause 16*1 ms.<br/>After 34, head will move to 20 which will cause 14*1 ms.<br/>And so on. So cylinders are accessed in following order 34, 20, 19, 15, 10, 7, 6, 4, 2, 73 and total time will be (16 + 14 + 1 + 4 + 5 + 3 + 1 + 2 + 2 + 71)*1 = 119 ms.<br/></p>
+<br/><br/>
+
+<p><b>Q.35.</b>In the following process state transition diagram for a uniprocessor system, assume that there are always some processes in the ready state: Now consider the following statements:<b>(GATE 2009)</b></p>
+<br/>
+<img src="images/solution10.png">
+<p>I. If a process makes a transition D, it would result in 
+   another process making transition A immediately.</p>
+<p>II. A process P2 in blocked state can make transition E 
+    while another process P1 is in running state.</p>
+<p>III. The OS uses preemptive scheduling.</p>
+<p>IV. The OS uses non-preemptive scheduling.</p>
+<p>Which of the above statements are TRUE?</p>
+<ol>
+<li><p>I and II</p></li>
+<li><p>I and III</p></li>
+<li><p>II and III</p></li>
+<li><p>II and IV</p></li>
+</ol>
+<p><b>Ans.</b>(3).II and III</p>
+<p>Explanation:</p>
+<p> I is false. If a process makes a transition D, it would result in another process making transition B, not A.<br/>
+II is true. <br/>A process can move to ready state when I/O completes irrespective of other process being in running state or not.<br/>
+III is true because there is a transition from running to ready state.<br/>
+IV is false as the OS uses preemptive scheduling.</p>
+<br/><br/>
+
+<p><b>Q.36.</b>The enter_CS() and leave_CS() functions to implement critical section of a process are realized using test-and-set instruction as follows:<b>(GATE 2009)</b></p>
+<p>void enter_CS(X)<br/>
+{<br/>
+    while test-and-set(X) ;<br/>
+}<br/>
+void leave_CS(X)<br/>
+{<br/>
+   X = 0;<br/>
+}<br/></p>
+<p>In the above solution, X is a memory location associated with the CS and is initialized to 0. Now consider the following statements:</p>
+<p>I. The above solution to CS problem is deadlock-free</p>
+<p>II. The solution is starvation free.</p>
+<p>III. The processes enter CS in FIFO order.</p>
+<p>IV More than one process can enter CS at the same time.</p>
+<p> Which of the above statements is TRUE?</p>
+<ol>
+<li><p>I only</p></li>
+<li><p>I and II</p></li>
+<li><p>II and III</p></li>
+<li><p>IV only</p></li>
+</ol>
+<p><b>Ans . </b>(1).I only</p>
+<p>Explanation:</p>
+<p>The above solution is a simple test-and-set solution that makes sure that deadlock doesn’t occur, but it doesn’t use any queue to avoid starvation or to have FIFO order.</p>
+<br/><br/>
+
+<p><b>Q.37.</b>The P and V operations on counting semaphores, where s is a counting semaphore, are defined as follows:<b>(GATE 2008)</b></p>
+<p>P(s) : s =  s - 1;<br/>
+  if (s  < 0) then wait;<br/>
+V(s) : s = s + 1;<br/>
+  if (s <= 0) then wakeup a process waiting on s;<br/></p>
+<p>Assume that Pb and Vb the wait and signal operations on binary semaphores are provided. Two binary semaphores Xb and Yb are used to implement the semaphore operations P(s) and V(s) as follows:<br/></p>
+<p>P(s) : Pb(Xb);<br/>
+  s = s - 1;<br/>
+  if (s < 0) {<br/>
+   Vb(Xb) ;<br/>
+   Pb(Yb) ;<br/>
+  }<br/>
+  else Vb(Xb);<br/> </p>
+<p>V(s) : Pb(Xb) ;<br/>
+  s = s + 1;<br/>
+  if (s <= 0) Vb(Yb) ;<br/>
+  Vb(Xb) ;<br/></p>
+<p>The initial values of Xb and Yb are respectively</p>
+<ol>
+<li><p>0 and 0</p></li>
+<li><p>0 and 1</p></li>
+<li><p>1 and 0</p></li>
+<li><p>1 and 1</p></li>
+</ol>
+<p><b>Ans.</b>(3).1 and 0</p>
+<p>Explanation:</p>
+<p>Suppose Xb = 0, then because of P(s): Pb(Xb) operation, Xb will be -1 and processs will get blocked as it will enter into waiting section.</p>
+<p>So, Xb will be one.</p>
+<p>Suppose s=2(means 2 process are accessing shared resource), taking Xb as 1,</p>
+<p>first P(s): Pb(Xb) operation will make Xb as zero. s will be 1 and Then Vb(Xb) operation will be executed which will increase the count of Xb as one. Then same process will be repeated making Xb as one and s as zero.</p>
+<p>Now suppose one more process comes, then Xb will be 1 but s will be -1 which will make this process go into loop (s <0) and will result into calling Vb(Xb) and Pb(Yb) operations. Vb(Xb) will result into Xb as 2 and Pb(Yb) will result into decrementing the value of Yb.</p>
+<p>case 1: if Yb has value as 0, it will be -1 and it will go into waiting and will be blocked.total 2 process will access shared resource (according to counting semaphore, max 3 process can access shared resource) and value of s is -1 means only 1 process will be waiting for resources and just now, one process got blocked. So it is still true.</p>
+<p>case 2: if Yb has value as 1, it will be 0. Total 3 process will access shared resource (according to counting semaphore, max 3 process can access shared resource) and value of s is -1 means only 1 process will be waiting for resources and but there is no process waiting for resources.So it is false.</p>
+<br/><br/>
+
+<p><b>Q.38.</b>Which of the following is NOT true of deadlock prevention and deadlock avoidance schemes?<b>(GATE 2008)</b></p>
+<ol>
+<li><p>In deadlock prevention, the request for resources is always granted if the resulting state is safe</p></li>
+<li><p>In deadlock avoidance, the request for resources is always granted if the result state is safe</p></li>
+<li><p>Deadlock avoidance is less restrictive than deadlock prevention</p></li>
+<li><p>Deadlock avoidance requires knowledge of resource requirements a priority</p></li>
+</ol>
+<p><b>Ans.</b>(1).In deadlock prevention, the request for resources is always granted if the resulting state is safe</p>
+<p>Explanation:</p>
+<p>Deadlock Prevention: Deadlocks can be prevented by preventing at least one of the four required conditions:</p>
+<p>1. Mutual Exclusion – not required for sharable resources; must hold for non-sharable resources.</p>
+<p>2. Hold and Wait – must guarantee that whenever a process requests a resource, it does not hold any other resources. Require process to request and be allocated all its sources before it begins execution, or allow process to request resources only when the process has none. Low resource utilization; starvation possible. Restrain the ways request can be made.</p>
+<p>3. No Pre-emption – If a process that is holding some resources requests another resource that cannot be immediately allocated to it, and then all resources currently being held are released. Pre-empted resources are added to the list of resources for which the process is waiting. Process will be restarted only when it can regain its old resources, as well as the new ones that it is requesting.</p>
+<p>4. Circular Wait – impose a total ordering of all resource types, and require that each process requests resources in an increasing order of enumeration.</p>
+<p>Deadlock Avoidance:</p>
+<p>When a scheduler sees that starting a process or granting resource requests may lead to future deadlocks, then that process is just not started or the request is not granted. The deadlock-avoidance algorithm dynamically examines the resource-allocation state to ensure that there can never be a circular-wait condition. Resource-allocation state is defined by the number of available and allocated resources, and the maximum demands of the processes.</p>
+<p>Choice of the question:</p>
+<p>(A) In deadlock prevention, the request for resources is always granted if the resulting state is safe. false, Deadlock prevention scheme handles deadlock by making sure that one of the four necessary conditions don’t occur. In deadlock prevention, the request for a resource may not be granted even if the resulting state is safe.</p>
+<p>(B) In deadlock avoidance, the request for resources is always granted if the result state is safe. true, As in Deadlock avoidance, if resultant state is safe than request for resource is granted as being in a safe state, it can hold other resources now.</p>
+<p>(C) Deadlock avoidance is less restrictive than deadlock prevention. true, As in Deadlock prevention, request for a resource may not be granted even if the resulting state is safe. but in deadlock avoidance, request for a resource is granted if the resulting state is safe.</p>
+<p>(D) Deadlock avoidance requires knowledge of resource requirements a priority true, deadlock avoidance checks any chance of deadlock means even if the system is in safe state, it checks that after allocating requested resource, the system is not in deadlocked state. So deadlock avoidance requires knowledge of resource requirements a priority.</p>
+<br/><br/>
+
+<p><b>Q.39.</b>A process executes the following code<b>(GATE 2008)</b></p>
+<p>for (i = 0; i < n; i++) fork();</p>
+<p>The total number of child processes created is</p>
+<ol>
+<li><p>n</p></li>
+<li><p>2^n – 1</p></li>
+<li><p>2^n</p></li>
+<li><p>2^(n+1) – 1;</p></li>
+</ol>
+<p><b>Ans . </b>(2).2^n – 1</p>
+<p>Explanation:</p>
+<p>F0       // There will be 1 child process created by first fork</p>
+<p>      /     \</p>
+<p>F1      F1    // There will be 2 child processes created by second fork</p>
+<p>/  \    /  \</p>
+<p>F2   F2  F2   F2  // There will be 4 child processes created by third fork</p>
+<p>/ \   / \ / \  / \</p>
+<p> ...............   // and so on</p>
+<p>If we sum all levels of above tree for i = 0 to n-1, we get 2^n – 1. So there will be 2^n – 1 child processes.</p>
+<br/><br/>
+
+<p><b>Q.34.</b><b>(GATE 2007)</b></p>
+<br/>
+<p></p>
+<p></p>
+<p></p>
+
+<ol>
+<li><p></p></li>
+<li><p></p></li>
+<li><p></p></li>
+<li><p></p></li>
+</ol>
+<p><b>Ans . </b>().</p>
+<p>Explanation:</p>
+<p></p>
+<br/><br/>
+
+<p><b>Q.34.</b><b>(GATE 2007)</b></p>
+<br/>
+<p></p>
+<p></p>
+<p></p>
+
+<ol>
+<li><p></p></li>
+<li><p></p></li>
+<li><p></p></li>
+<li><p></p></li>
+</ol>
+<p><b>Ans . </b>().</p>
+<p>Explanation:</p>
+<p></p>
+<br/><br/>
+
+<p><b>Q.34.</b><b>(GATE 2007)</b></p>
+<br/>
+<p></p>
+<p></p>
+<p></p>
+
+<ol>
+<li><p></p></li>
+<li><p></p></li>
+<li><p></p></li>
+<li><p></p></li>
+</ol>
+<p><b>Ans . </b>().</p>
+<p>Explanation:</p>
+<p></p>
+<br/><br/>
+
+<p><b>Q.34.</b><b>(GATE 2007)</b></p>
+<br/>
+<p></p>
+<p></p>
+<p></p>
+
+<ol>
+<li><p></p></li>
+<li><p></p></li>
+<li><p></p></li>
+<li><p></p></li>
+</ol>
+<p><b>Ans . </b>().</p>
+<p>Explanation:</p>
+<p></p>
+<br/><br/>
+
+<p><b>Q.34.</b><b>(GATE 2007)</b></p>
+<br/>
+<p></p>
+<p></p>
+<p></p>
+
+<ol>
+<li><p></p></li>
+<li><p></p></li>
+<li><p></p></li>
+<li><p></p></li>
+</ol>
+<p><b>Ans . </b>().</p>
+<p>Explanation:</p>
+<p></p>
+<br/><br/>
+
+<p><b>Q.34.</b><b>(GATE 2007)</b></p>
+<br/>
+<p></p>
+<p></p>
+<p></p>
+
+<ol>
+<li><p></p></li>
+<li><p></p></li>
+<li><p></p></li>
+<li><p></p></li>
+</ol>
+<p><b>Ans . </b>().</p>
+<p>Explanation:</p>
+<p></p>
+<br/><br/>
+
+<p><b>Q.34.</b><b>(GATE 2009)</b></p>
+<br/>
+<p></p>
+<p></p>
+<p></p>
+
+<ol>
+<li><p></p></li>
+<li><p></p></li>
+<li><p></p></li>
+<li><p></p></li>
+</ol>
+<p><b>Ans . </b>().</p>
+<p>Explanation:</p>
+<p></p>
+<br/><br/>
+
+
+
 
 </body>
 </html>
