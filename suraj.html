@@ -1208,126 +1208,416 @@ V(s) : s = s + 1;<br/>
 <p>If we sum all levels of above tree for i = 0 to n-1, we get 2^n – 1. So there will be 2^n – 1 child processes.</p>
 <br/><br/>
 
-<p><b>Q.34.</b><b>(GATE 2007)</b></p>
-<br/>
-<p></p>
-<p></p>
-<p></p>
+<p><b>Q.40.</b>Consider the following statements about user level threads and kernel level threads. Which one of the following statement is FALSE?<b>(GATE 2007)</b></p>
+<ol>
+<li><p>Context switch time is longer for kernel level threads than for user level threads.</p></li>
+<li><p> User level threads do not need any hardware support.</p></li>
+<li><p>Related kernel level threads can be scheduled on different processors in a multi-processor system.</p></li>
+<li><p>Blocking one kernel level thread blocks all related threads.</p></li>
+</ol>
+<p><b>Ans . </b>(4).Blocking one kernel level thread blocks all related threads.</p>
+<p>Explanation:</p>
+<p>Kernel level threads are managed by the OS, therefore, thread operations are implemented in the kernel code. Kernel level threads can also utilize multiprocessor systems by splitting threads on different processors. If one thread blocks it does not cause the entire process to block. Kernel level threads have disadvantages as well. They are slower than user level threads due to the management overhead. Kernel level context switch involves more steps than just saving some registers. Finally, they are not portable because the implementation is operating system dependent.</p>
+<p>option (A): Context switch time is longer for kernel level threads than for user level threads. True, As User level threads are managed by user and Kernel level threads are managed by OS. There are many overheads involved in Kernel level thread management, which are not present in User level thread management. So context switch time is longer for kernel level threads than for user level threads.</p>
+<p>Option (B): User level threads do not need any hardware support True, as User level threads are managed by user and implemented by Libraries, User level threads do not need any hardware support.</p>
+<p>Option (C): Related kernel level threads can be scheduled on different processors in a multi- processor system. This is true.</p>
+<p>Option (D): Blocking one kernel level thread blocks all related threads. false, since kernel level threads are managed by operating system, if one thread blocks, it does not cause all threads or entire process to block.</p>
+<br/><br/>
 
+<p><b>Q.41.</b>An operating system uses Shortest Remaining Time first (SRT) process scheduling algorithm. Consider the arrival times and execution times for the following processes:<b>(GATE 2007)</b></p>
+<table>
+<thead>
+<th>Process </th><th>Execution time</th><th>Arrival time</th>
+</thead>
+<tbody>
+<tr>
+<th>P1</th><th>20</th><th>0</th>
+</tr>
+<tr>
+<th>P2</th><th>25</th><th>15</th>
+</tr>
+<tr>
+<th>P3</th><th>10</th><th>30</th>
+</tr>
+<tr>
+<th>P4</th><th>15</th><th>45</th>
+</tr>
+</tbody>
+</table>
+<p>What is the total waiting time for process P2?</p>
+<ol>
+<li><p>5</p></li>
+<li><p>15</p></li>
+<li><p>40</p></li>
+<li><p>55</p></li>
+</ol>
+<p><b>Ans . </b>(2).15</p>
+<p>Explanation:</p>
+<p>Shortest remaining time, also known as shortest remaining time first (SRTF), is a scheduling method that is a pre-emptive version of shortest job next scheduling. In this scheduling algorithm, the process with the smallest amount of time remaining until completion is selected to execute. Since the currently executing process is the one with the shortest amount of time remaining by definition, and since that time should only reduce as execution progresses, processes will always run until they complete or a new process is added that requires a smaller amount of time.</p>
+<p>The Gantt chart of execution of processes:</p>
+<img src="images/solution11.png">
+<p>At time 0, P1 is the only process, P1 runs for 15 time units.</p>
+<p>At time 15, P2 arrives, but P1 has the shortest remaining time. So P1 continues for 5 more time units.</p>
+<p>At time 20, P2 is the only process. So it runs for 10 time units.</p>
+<p>at time 30, P3 is the shortest remaining time process. So it runs for 10 time units.</p>
+<p>at time 40, P2 runs as it is the only process. P2 runs for 5 time units.</p>
+<p>At time 45, P3 arrives, but P2 has the shortest remaining time. So P2 continues for 10 more time units. P2 completes its execution at time 55.</p>
+<img src="images/solution12.png">
+<p>As we know, turn around time is total time between submission of the process and its completion. Waiting time is the time The amount of time that is taken by a process in ready queue and waiting time is the difference between Turn around time and burst time.</p>
+<p>Total turnaround time for P2 = Completion time – Arrival time = 55 – 15 = 40</p>
+<p>Total Waiting Time for P2= turn around time – Burst time = 40 – 25 = 15</p>
+<br/><br/>
+
+<p><b>Q.42.</b>A single processor system has three resource types X, Y and Z, which are shared by three processes. There are 5 units of each resource type. Consider the following scenario, where the column alloc denotes the number of units of each resource type allocated to each process, and the column request denotes the number of units of each resource type requested by a process in order to complete execution. Which of these processes will finish LAST?<b>(GATE 2007)</b></p>
+<table>
+<thead>
+<th>Process </th><th>alloc</th><th>request</th>
+</thead>
+<tbody>
+<tr>
+<th>&nbsp</th><th>X Y Z</th><th>X Y Z</th>
+</tr>
+<tr>
+<th>P0</th><th>1 2 1</th><th>1 0 3</th>
+</tr>
+<tr>
+<th>P1</th><th>2 0 1</th><th>0 1 2</th>
+</tr>
+<tr>
+<th>P2</th><th>2 2 1</th><th>1 2 0</th>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><p>P0</p></li>
+<li><p>P1</p></li>
+<li><p>P2</p></li>
+<li><p>None of the above, since the system is in a deadlock</p></li>
+</ol>
+<p><b>Ans . </b>(3).P2</p>
+<p>Explanation:</p>
+<p>A single processor system has three resource types X, Y and Z, which are shared by three processes. There are 5 units of each resource type.</p>
+<p>So, the resource instances which are left being unallocated = { unallocated resources= total resources-allocated resources }</p>
+<img src="images/solution13.png">
+<p>now, from the request table, you can say that only request of P1 can be satisfied. So P1 can finish its execution first. Once P1 is done, it releases 2, 0 and 1 units of X, Y and Z
+respectively which were allocated to P1.So, Now unallocated resource instance are = + =</p>
+<p>Now Among P0 and P2, needs of P0 can only be satisfied. So P0 finishes its execution. Once P2 is done, It releases 2,2,and 1 units of X,Y and Z respectively which were allocated to P2.SO, Now unallocated resource instance are= + = . Finally, P2 finishes its execution. So, P2 is the process which finishes in end.</p>
+<p>Option (C) is the correct answer.</p>
+<br/><br/>
+
+<p><b>Q.43.</b>Two processes, P1 and P2, need to access a critical section of code. Consider the following synchronization construct used by the processes:Here, wants1 and wants2 are shared variables, which are initialized to false. Which one of the following statements is TRUE about the above construct?<b>(GATE 2007)</b></p>
+<p>/* P1 */<br/>
+while (true) {<br/>
+  wants1 = true;<br/>
+  while (wants2 == true);<br/>
+  /* Critical Section */<br/>
+  wants1=false;<br/>
+}<br/>
+/* Remainder section */<br/></p>
+<p>/* P2 */<br/>
+while (true) {<br/>
+  wants2 = true;<br/>
+  while (wants1==true);<br/>
+  /* Critical Section */<br/>
+  wants2 = false;<br/>
+}<br/>
+/* Remainder section */<br/></p>
+<ol>
+<li><p>It does not ensure mutual exclusion.</p></li>
+<li><p>It does not ensure bounded waiting.</p></li>
+<li><p>It requires that processes enter the critical section in strict alternation.</p></li>
+<li><p>It does not prevent deadlocks, but ensures mutual exclusion.</p></li>
+</ol>
+<p><b>Ans . </b>(4).It does not prevent deadlocks, but ensures mutual exclusion.</p>
+<p>Explanation:</p>
+<p>Bounded waiting :There exists a bound, or limit, on the number of times other processes are allowed to enter their critical sections after a process has made request to enter its critical section and before that request is granted.</p>
+<p>mutual exclusion prevents simultaneous access to a shared resource. This concept is used in concurrent programming with a critical section, a piece of code in which processes or threads access a shared resource.</p>
+<p>Solution:</p>
+<p>Two processes, P1 and P2, need to access a critical section of code. Here, wants1 and wants2 are shared variables, which are initialized to false.</p>
+<p>Now, when both wants1 and wants2 become true, both process p1 and p2 enter in while loop and waiting for each other to finish. This while loop run indefinitely which leads to deadlock.</p>
+<p>Now, Assume P1 is in critical section (it means wants1=true, wants2 can be anything, true or false). So this ensures that p2 won’t enter in critical section and vice versa. This satisfies the property of mutual exclusion.</p>
+<p>Here bounded waiting condition is also satisfied as there is a bound on the number of process which gets access to critical section after a process request access to it.</p>
+<br/><br/>
+
+<p><b>Q.44.</b>Consider three CPU-intensive processes, which require 10, 20 and 30 time units and arrive at times 0, 2 and 6, respectively. How many context switches are needed if the operating system implements a shortest remaining time first scheduling algorithm? Do not count the context switches at time zero and at the end.<b>(GATE 2006)</b></p>
+<ol>
+<li><p>1</p></li>
+<li><p>2</p></li>
+<li><p>3</p></li>
+<li><p>4</p></li>
+</ol>
+<p><b>Ans . </b>(2).2</p>
+<p>Explanation:</p>
+<p>Shortest remaining time, also known as shortest remaining time first (SRTF), is a scheduling method that is a pre-emptive version of shortest job next scheduling. In this scheduling algorithm, the process with the smallest amount of time remaining until completion is selected to execute. Since the currently executing process is the one with the shortest amount of time remaining by definition, and since that time should only reduce as execution progresses, processes will always run until they complete or a new process is added that requires a smaller amount of time.</p>
+<p>Solution:</p>
+<p>Let three process be P0, P1 and P2 with arrival times 0, 2 and 6 respectively and CPU burst times 10, 20 and 30 respectively. At time 0, P0 is the only available process so it runs. At time 2, P1 arrives, but P0 has the shortest remaining time, so it continues. At time 6, P2 also arrives, but P0 still has the shortest remaining time, so it continues. At time 10, P1 is scheduled as it is the shortest remaining time process. At time 30, P2 is scheduled. Only two context switches are needed. P0 to P1 and P1 to P2.</p>
+<br/><br/>
+
+<p><b>Q.45.</b>The atomic fetch-and-set x, y instruction unconditionally sets the memory location x to 1 and fetches the old value of x n y without allowing any intervening access to the memory location x. consider the following implementation of P and V functions on a binary semaphore S.<b>(GATE 2006)</b></p>
+<p>void P (binary_semaphore *s)<br/>
+{<br/>
+    unsigned y;<br/>
+    unsigned *x = &(s->value);<br/>
+    do<br/>
+    {<br/>
+        fetch-and-set x, y;<br/>
+    }<br/>
+    while (y);<br/>
+}<br/>
+void V (binary_semaphore *s)<br/>
+{<br/>
+    S->value = 0;<br/>
+}</p>
+<p>Which one of the following is true?</p>
+<ol>
+<li><p>The implementation may not work if context switching is disabled in P</p></li>
+<li><p>Instead of using fetch-and –set, a pair of normal load/store can be used</p></li>
+<li><p>The implementation of V is wrong</p></li>
+<li><p>The code does not implement a binary semaphore</p></li>
+</ol>
+<p><b>Ans . </b>(1).The implementation may not work if context switching is disabled in P</p>
+<p>Explanation:</p>
+<p>Let us talk about the operation P(). It stores the value of s in x, then it fetches the old value of x, stores it in y and sets x as 1. The while loop of a process will continue forever if some other process doesn’t execute V() and sets the value of s as 0. If context switching is disabled in P, the while loop will run forever as no other process will be able to execute V().</p>
+<br/><br/>
+
+<p><b>Q.46.</b>Consider three processes (process id 0, 1, 2 respectively) with compute time bursts 2, 4 and 8 time units. All processes arrive at time zero. Consider the longest remaining time first (LRTF) scheduling algorithm. In LRTF ties are broken by giving priority to the process with the lowest process id. The average turn around time is:<b>(GATE 2006)</b></p>
+<ol>
+<li><p>13 units</p></li>
+<li><p>14 units</p></li>
+<li><p>15 units</p></li>
+<li><p>16 units</p></li>
+</ol>
+<p><b>Ans.</b>(1).13 units</p>
+<p>Explanation:</p>
+<p><strong>Background Explanation:</strong></p>
+<p>Turn around time of a process is total time between submission of the process and its completion.LRTF(Longest Remaining Time First), means the process which has remaining time largest, will run first and in case of same remaining time, lowest process with will be given priority to run.</p>
+<p>Solution:</p>
+<p>Let the processes be p0, p1 and p2. These processes will be executed in following order.</p>
+<p>Gantt chart is as follows:</p>
+<p>p2&nbspp1&nbspp2&nbsp&nbspp1&nbspp2&nbspp0&nbspp1&nbspp2&nbspp0&nbspp1&nbspp2<br/>
+0&nbsp&nbsp4&nbsp&nbsp5&nbsp&nbsp6&nbsp&nbsp7&nbsp&nbsp8&nbsp&nbsp9&nbsp&nbsp10&nbsp&nbsp11&nbsp&nbsp12&nbsp&nbsp13&nbsp&nbsp14</p>
+<p>First 4 sec, p2 will run, then remaining time p2=4, p1=4, p0=2. Now P1 will get chance to run for 1 sec, then remaining time. p2=4,p1=3,p0=2. Now p2 will get chance to run for 1 sec, then remaining time. p2=3,p1=3,p0=2.</p>
+<p>By doing this way, you will get above gantt chart.</p>
+<p>Scheduling table:</p>
+<img src="images/solution14.png">
+<p>AT=Arrival Time, BT=Burst Time, CT=Completion Time, TAT=Turn Around Time As we know, turn around time is total time between submission of the process and its completion. i.e turn around time=completion time-arrival time. i.e. TAT=CT-AT Turn around time of p0 = 12 (12-0) Turn around time of p1 = 13 (13-0) Turn around time of p2 = 14 (14-0)</p>
+<p>Average turn around time is (12+13+14)/3 = 13.</p>
+<p>Option (A) is the correct answer.</p>
+<br/><br/>
+
+<p><b>Q.47.</b>Consider three processes, all arriving at time zero, with total execution time of 10, 20 and 30 units, respectively. Each process spends the first 20% of execution time doing I/O, the next 70% of time doing computation, and the last 10% of time doing I/O again. The operating system uses a shortest remaining compute time first scheduling algorithm and schedules a new process either when the running process gets blocked on I/O or when the running process finishes its compute burst. Assume that all I/O operations can be overlapped as much as possible. For what percentage of time does the CPU remain idle?<b>(GATE 2006)</b></p>
+<ol>
+<li><p>0%</p></li>
+<li><p>10.6%</p></li>
+<li><p>30.0%</p></li>
+<li><p>89.4%</p></li>
+</ol>
+<p><b>Ans.</b>(2).10.6%</p>
+<p>Explanation:</p>
+<p>Shortest remaining time ( SRT ) scheduling algorithm selects the process for execution which has the smallest amount of time remaining until completion.</p>
+<p>Let three processes be p0, p1 and p2. Their execution time is 10, 20 and 30 respectively.</p>
+<p>p0 spends first 2 time units in I/O, 7 units of CPU time and finally 1 unit in I/O.</p>
+<p>p1 spends first 4 units in I/O, 14 units of CPU time and finally 2 units in I/O.</p>
+<p>p2 spends first 6 units in I/O, 21 units of CPU time and finally 3 units in I/O.</p>
+<img src="images/solution15.png">
+<p>AT- Arrival Time, IO-input/output, BT-Burst Time</p>
+<p>first process p0 will spend 2 units in IO, next 7 units in BT, then process p1 will spend 14 units in BT (as its 4 units of IO has been spent already when previous process was running) and ten process p2 will spend 21 units in BT (as its 6 units of IO has been spent already when previous processes were running) and atlast 3 units in IO (process p0,p1,p2’s last IO included.)</p>
+<p>idle&nbsp&nbspp0&nbsp&nbspp1&nbsp&nbspp2&nbsp&nbspidle</br>
+0&nbsp&nbsp2&nbsp&nbsp9&nbsp&nbsp23&nbsp&nbsp44&nbsp&nbsp47</p>
+<p>Total time spent = 47</p>
+<p>Idle time = 2 + 3 = 5</p>
+<p>Percentage of idle time = (5/47)*100 = 10.6 %</p>
+<br/><br/>
+
+<p><b>Q.48.</b>Consider the following snapshot of a system running n processes. Process i is holding Xi instances of a resource R, 1 <= i <= n. currently, all instances of R are occupied. Further, for all i, process i has placed a request for an additional Yi instances while holding the Xi instances it already has. There are exactly two processes p and q such that Yp = Yq = 0. Which one of the following can serve as a necessary condition to guarantee that the system is not approaching a deadlock?<b>(GATE 2006)</b></p>
+<ol>
+<li><p>min (Xp, Xq) < max (Yk) where k != p and k != q</p></li>
+<li><p>Xp + Xq >= min (Yk) where k != p and k != q</p></li>
+<li><p>max (Xp, Xq) > 1</p></li>
+<li><p>min (Xp, Xq) > 1</p></li>
+</ol>
+<p><b>Ans. </b>(2).Xp + Xq >= min (Yk) where k != p and k != q</p>
+<p>Explanation:</p>
+<p>Deadlock refers to a specific condition when two or more processes are each waiting for another to release a resource, or more than two processes are waiting for resources.</p>
+<p>Solution:</p>
+<p>Necessary condition to guarantee no deadlock which means without satisfying this condition, no deadlock is possible. Both the process p and q have no additional requirement; they both can be finished releasing Xp + Xq resources without asking for any additional resource.</p>
+<p>Using this, we can finish one more process only if condition B is satisfied. If the resources released by p and q are sufficient for another process waiting for Yk resources, then system is not approaching deadlock.</p>
+<p>i.e Xp+Xq > min (Yk) where k != p and k != q</p>
+<p>Note: Option B just ensured that the system can proceed from the current state. It does not guarantee that there won’t be a deadlock before all processes are finished.</p>
+<br/><br/>
+
+<p><b>Q.49.</b>Suppose n processes, P1, …. Pn share m identical resource units, which can be reserved and released one at a time. The maximum resource requirement of process Pi is Si, where Si > 0. Which one of the following is a sufficient condition for ensuring that deadlock does not occur? <b>(GATE 2005)</b></p>
+<img src="images/solution16.png">
+<ol>
+<li><p>A</p></li>
+<li><p>B</p></li>
+<li><p>C</p></li>
+<li><p>D</p></li>
+</ol>
+<p><b>Ans. </b>(3).C</p>
+<p>Explanation:</p>
+<p>In the extreme condition, all processes acquire Si-1 resources and need 1 more resource. So following condition must be true to make sure that deadlock never occurs.</p>
+<p><img src="images/solution17.png"> < m The above expression can be written as following. <img src="images/solution18.png"> < (m + n) </p>
+<br/><br/>
+
+<p><b>Q.50.</b>Consider the following code fragment:<b>(GATE 2005)</b></p>
+<p> if (fork() == 0)<br/>
+  {<br/> a = a + 5;<br/> printf(“%d,%d\n”, a, &a);<br/> }<br/>
+  else {<br/> a = a –5;<br/> printf(“%d, %d\n”, a, &a);<br/> } </p>
+<p>Let u, v be the values printed by the parent process, and x, y be the values printed by the child process.</p>
+<p>Which one of the following is TRUE?</p>
+<ol>
+<li><p>u = x + 10 and v = y</p></li>
+<li><p>u = x + 10 and v != y</p></li>
+<li><p>u + 10 = x and v = y</p></li>
+<li><p>u + 10 = x and v != y</p></li>
+</ol>
+<p><b>Ans.</b>(3).u + 10 = x and v = y</p>
+<p>Explanation:</p>
+<p>When a fork() system call is issued, a copy of all the pages corresponding to the parent process is created, loaded into a separate memory location by the OS for the child process. But this is not needed in certain cases. When the child is needed just to execute a command for the parent process, there is no need for copying the parent process’ pages, since exec replaces the address space of the process which invoked it with the command to be executed. In such cases, a technique called copy-on-write (COW) is used.</p>
+<p>With this technique, when a fork occurs, the parent process’s pages are not copied for the child process. Instead, the pages are shared between the child and the parent process. Whenever a process (parent or child) modifies a page, a separate copy of that particular page alone is made for that process (parent or child) which performed the modification. This process will then use the newly copied page rather than the shared one in all future references.</p>
+<p>fork() returns 0 in child process and process ID of child process in parent process.</p>
+<p>In Child (x), a = a + 5</p>
+<p>In Parent (u), a = a – 5;</p>
+<p>Child process will execute the if part and parent process will execute the else part. Assume that the initial value of a = 6. Then the value of a printed by the child process will be 11, and the value of a printed by the parent process in 1. Therefore u+10=x Now the second part. The answer is v = y.</p>
+<p>We know that, the fork operation creates a separate address space for the child. But the child process has an exact copy of all the memory segments of the parent process. Hence the virtual addresses and the mapping (initially) will be the same for both parent process as well as child process.</p>
+<p>PS: the virtual address is same but virtual addresses exist in different processes’ virtual address space and when we print &a, it’s actually printing the virtual address. Hence the answer is v = y.</p>
+<br/><br/>
+
+<p><b>Q.51.</b><b>(GATE 2004)</b></p>
+<p></p>
+<p></p>
+<p></p>
 <ol>
 <li><p></p></li>
 <li><p></p></li>
 <li><p></p></li>
 <li><p></p></li>
 </ol>
-<p><b>Ans . </b>().</p>
+<p><b>Ans.</b>().</p>
 <p>Explanation:</p>
 <p></p>
 <br/><br/>
 
-<p><b>Q.34.</b><b>(GATE 2007)</b></p>
-<br/>
+<p><b>Q.52.</b><b>(GATE 2004)</b></p>
 <p></p>
 <p></p>
 <p></p>
-
 <ol>
 <li><p></p></li>
 <li><p></p></li>
 <li><p></p></li>
 <li><p></p></li>
 </ol>
-<p><b>Ans . </b>().</p>
+<p><b>Ans.</b>().</p>
 <p>Explanation:</p>
 <p></p>
 <br/><br/>
 
-<p><b>Q.34.</b><b>(GATE 2007)</b></p>
-<br/>
+<p><b>Q.53.</b><b>(GATE 2004)</b></p>
 <p></p>
 <p></p>
 <p></p>
-
 <ol>
 <li><p></p></li>
 <li><p></p></li>
 <li><p></p></li>
 <li><p></p></li>
 </ol>
-<p><b>Ans . </b>().</p>
+<p><b>Ans. </b>().</p>
 <p>Explanation:</p>
 <p></p>
 <br/><br/>
 
-<p><b>Q.34.</b><b>(GATE 2007)</b></p>
-<br/>
+<p><b>Q.55.</b><b>(GATE 2004)</b></p>
 <p></p>
 <p></p>
 <p></p>
-
 <ol>
 <li><p></p></li>
 <li><p></p></li>
 <li><p></p></li>
 <li><p></p></li>
 </ol>
-<p><b>Ans . </b>().</p>
+<p><b>Ans. </b>().</p>
 <p>Explanation:</p>
 <p></p>
 <br/><br/>
 
-<p><b>Q.34.</b><b>(GATE 2007)</b></p>
-<br/>
+<p><b>Q.51.</b><b>(GATE 2003)</b></p>
 <p></p>
 <p></p>
 <p></p>
-
 <ol>
 <li><p></p></li>
 <li><p></p></li>
 <li><p></p></li>
 <li><p></p></li>
 </ol>
-<p><b>Ans . </b>().</p>
+<p><b>Ans. </b>().</p>
 <p>Explanation:</p>
 <p></p>
 <br/><br/>
 
-<p><b>Q.34.</b><b>(GATE 2007)</b></p>
-<br/>
+<p><b>Q.52.</b><b>(GATE 2003)</b></p>
 <p></p>
 <p></p>
 <p></p>
-
 <ol>
 <li><p></p></li>
 <li><p></p></li>
 <li><p></p></li>
 <li><p></p></li>
 </ol>
-<p><b>Ans . </b>().</p>
+<p><b>Ans. </b>().</p>
 <p>Explanation:</p>
 <p></p>
 <br/><br/>
 
-<p><b>Q.34.</b><b>(GATE 2009)</b></p>
-<br/>
+<p><b>Q.53.</b><b>(GATE 2003)</b></p>
 <p></p>
 <p></p>
 <p></p>
-
 <ol>
 <li><p></p></li>
 <li><p></p></li>
 <li><p></p></li>
 <li><p></p></li>
 </ol>
-<p><b>Ans . </b>().</p>
+<p><b>Ans. </b>().</p>
 <p>Explanation:</p>
 <p></p>
 <br/><br/>
 
+<p><b>Q.55.</b><b>(GATE 2003)</b></p>
+<p></p>
+<p></p>
+<p></p>
+<ol>
+<li><p></p></li>
+<li><p></p></li>
+<li><p></p></li>
+<li><p></p></li>
+</ol>
+<p><b>Ans. </b>().</p>
+<p>Explanation:</p>
+<p></p>
+<br/><br/>
 
+<p><b>Q.56.</b><b>(GATE 2003)</b></p>
+<p></p>
+<p></p>
+<p></p>
+<ol>
+<li><p></p></li>
+<li><p></p></li>
+<li><p></p></li>
+<li><p></p></li>
+</ol>
+<p><b>Ans. </b>().</p>
+<p>Explanation:</p>
+<p></p>
+<br/><br/>
 
 
 </body>
